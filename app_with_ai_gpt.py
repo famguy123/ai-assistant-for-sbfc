@@ -35,7 +35,7 @@ def ask_gpt(question, context_data):
     prompt = f"{context_text}\n\nΕρώτηση χρήστη:\n{question}\n\nΑπάντησε με σαφήνεια και σύντομα."
 
     response = client.chat.completions.create(
-        model="gpt-4",
+        model="gpt-4-1106-preview",
         messages=[
             {"role": "system", "content": "Είσαι ένας οικονομικός βοηθός που αναλύει δεδομένα από Excel."},
             {"role": "user", "content": prompt}
