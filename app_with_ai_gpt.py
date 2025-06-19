@@ -28,7 +28,7 @@ def extract_summary_data(file):
     return summary
 
 def ask_gpt(question, context_data):
-    context_text = "Τα δεδομένα αφορούν λογιστικά αποτελέσματα για το 2025 ανά μήνα.
+    context_text = "Τα δεδομένα αφορούν λογιστικά αποτελέσματα για το 2025 ανά μήνα."
 "
     for month, values in context_data.items():
         context_text += f"
