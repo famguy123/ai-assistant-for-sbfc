@@ -3,8 +3,7 @@ import openai
 import tempfile
 from openpyxl import load_workbook
 
-# Load OpenAI API key securely from Streamlit Secrets
-openai.api_key = st.secrets["OPENAI_API_KEY"]
+client = openai.OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 def extract_summary_data(file):
     wb = load_workbook(file, data_only=True)
@@ -35,7 +34,7 @@ def ask_gpt(question, context_data):
             context_text += f"- {key}: {val}\n"
     prompt = f"{context_text}\n\nΕρώτηση χρήστη:\n{question}\n\nΑπάντησε με σαφήνεια και σύντομα."
 
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-4",
         messages=[
             {"role": "system", "content": "Είσαι ένας οικονομικός βοηθός που αναλύει δεδομένα από Excel."},
@@ -44,7 +43,7 @@ def ask_gpt(question, context_data):
         temperature=0.4,
         max_tokens=500
     )
-    return response.choices[0].message["content"]
+    return response.choices[0].message.content
 
 # Streamlit UI
 st.set_page_config(page_title="Βοηθός Excel με GPT", layout="centered")
